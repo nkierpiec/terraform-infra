@@ -17,18 +17,18 @@ module "bastion" {
   has_public_ip   = true
   instance_count  = "1"
   instance_type   = "t2.micro"
-  security_groups = [module.infrastructure.ext_http_sg]
+  security_groups = [module.infrastructure.ext_http_sg, module.infrastructure.ext_ssh_sg]
   source          = "../terraform-compute"
   subnet_id       = "subnet-01228fdeb3178d80b"
   tags = {
-    Name = "app_node"
+    Name = "app_bastion_node"
   }
 }
 
 module "compute" {
   ami             = "ami-06397100adf427136"
   has_public_ip   = true
-  instance_count  = "5"
+  instance_count  = "1"
   instance_type   = "t2.micro"
   security_groups = [module.infrastructure.int_http_sg, module.infrastructure.int_ssh_sg]
   source          = "../terraform-compute"
