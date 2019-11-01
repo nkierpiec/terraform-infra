@@ -2,12 +2,6 @@
 
 ## Description
 
-Used for a placeholder until we establish a standard
-
-## Usage
-
-``` terraform
-terraform plan -var-file="input.tfvars"
-
-terraform apply -var-file="input.tfvars"
-```
+Used to setup a basic infrastructue in AWS with a bastion host and 'n' nodes.
+Run from the `app-dev` main folder.
+Make sure to setup your `env` vars before running.
