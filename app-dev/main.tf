@@ -17,7 +17,7 @@ module "bastion" {
   has_public_ip   = true
   instance_count  = "1"
   instance_type   = "t2.micro"
-  security_groups = [module.infrastructure.ext_http_sg, module.infrastructure.ext_ssh_sg]
+  security_groups = [module.infrastructure.ext_ssh_sg]
   source          = "../terraform-compute"
   subnet_id       = "subnet-01228fdeb3178d80b"
   tags = {
@@ -30,7 +30,7 @@ module "compute" {
   has_public_ip   = true
   instance_count  = "1"
   instance_type   = "t2.micro"
-  security_groups = [module.infrastructure.int_http_sg, module.infrastructure.int_ssh_sg]
+  security_groups = [module.infrastructure.ext_http_sg, module.infrastructure.int_ssh_sg]
   source          = "../terraform-compute"
   subnet_id       = "subnet-01228fdeb3178d80b"
   tags = {
@@ -39,7 +39,7 @@ module "compute" {
 }
 
 module "elb" {
-  security_groups = [module.infrastructure.ext_http_sg, module.infrastructure.int_http_sg]
+  security_groups = [module.infrastructure.ext_http_sg, module.infrastructure.int_ssh_sg]
   instances       = module.compute.ids
   subnets         = ["subnet-01228fdeb3178d80b"]
   source          = "../terraform-elb"
